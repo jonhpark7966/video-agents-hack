@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pitch Overlay Mockup</title>
+<style>
+  :root { --bg:#0b0f14; --panel:#121923; --line:#223042; --text:#e6edf3; --muted:#8b98a8; --cyan:#35e0ff; --orange:#ff9f2e; --red:#ff3b5c; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:14px/1.4 -apple-system, Inter, system-ui, sans-serif; }
+  .wrap { display:grid; grid-template-columns: 1fr 300px; gap:12px; padding:12px; max-width:1200px; margin:0 auto; }
+  .stage { position:relative; aspect-ratio:16/9; background:#1c5a2a; border-radius:8px; overflow:hidden; border:1px solid var(--line); }
+  canvas { position:absolute; inset:0; width:100%; height:100%; }
+  .hud { position:absolute; left:12px; top:12px; background:rgba(0,0,0,.55); padding:6px 10px; border-radius:6px; font-size:12px; color:var(--muted); }
+  .hud b { color:var(--text); }
+  .badge { position:absolute; right:12px; top:12px; background:var(--red); color:#fff; font-weight:700; padding:6px 12px; border-radius:6px; letter-spacing:.08em; font-size:12px; display:none; }
+  .badge.on { display:block; animation:pulse .6s infinite alternate; }
+  @keyframes pulse { from{opacity:.75} to{opacity:1} }
+  .controls { position:absolute; left:0; right:0; bottom:0; padding:8px 12px; background:linear-gradient(transparent, rgba(0,0,0,.7)); display:flex; align-items:center; gap:10px; font-size:12px; }
+  .bar { flex:1; height:4px; background:rgba(255,255,255,.25); border-radius:2px; overflow:hidden; }
+  .bar i { display:block; height:100%; width:0; background:var(--cyan); }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:12px; display:flex; flex-direction:column; min-height:0; }
+  .panel h2 { margin:0 0 4px; font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+  .panel .sub { color:var(--muted); font-size:12px; margin-bottom:10px; }
+  .log { flex:1; overflow:auto; display:flex; flex-direction:column; gap:6px; }
+  .ev { background:#0b1118; border-left:3px solid var(--red); padding:8px 10px; border-radius:4px; font-size:12px; }
+  .ev .t { color:var(--muted); font-variant-numeric:tabular-nums; }
+  .ev .d { color:var(--orange); font-weight:600; }
+  .legend { display:flex; gap:12px; font-size:11px; color:var(--muted); margin-top:10px; }
+  .dot { display:inline-block; width:10px; height:6px; border-radius:50%; border:2px solid; vertical-align:middle; margin-right:4px; }
+  @media (max-width:800px){ .wrap{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage">
+    <canvas id="c" width="1280" height="720"></canvas>
+    <div class="hud">pitch_cam-1 · <b id="clock">00:00</b> · YOLO11 · 5 fps</div>
+    <div class="badge" id="badge">PRESSURE</div>
+    <div class="controls"><span id="play">▶</span><div class="bar"><i id="prog"></i></div><span>01:30</span></div>
+  </div>
+  <div class="panel">
+    <h2>Pressure events</h2>
+    <div class="sub">Carrier within 3m (est.) of an opponent</div>
+    <div class="log" id="log"></div>
+    <div class="legend">
+      <span><i class="dot" style="border-color:var(--cyan)"></i>player</span>
+      <span><i class="dot" style="border-color:var(--orange)"></i>ball</span>
+      <span><i class="dot" style="border-color:var(--red)"></i>carrier under pressure</span>
+    </div>
+  </div>
+</div>
+<script>
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const W = cv.width, H = cv.height;
+const PX_PER_M = W / 50; // pitch width in frame ~50m, rough
+const THRESH_M = 3;
+
+// fake players: team A (home) and team B, each with a wandering target
+const players = [];
+for (let i = 0; i < 10; i++) players.push({ team: i < 5 ? 'A' : 'B', x: 200 + Math.random()*880, y: 150 + Math.random()*420, tx:0, ty:0, h: 70 + Math.random()*20 });
+players.forEach(p => { p.tx = p.x; p.ty = p.y; });
+const ball = { x: W/2, y: H/2, tx: W/2, ty: H/2, holder: 0, hold: 0 };
+
+let t = 0, lastEvent = -99, events = 0;
+const log = document.getElementById('log'), badge = document.getElementById('badge'), clock = document.getElementById('clock'), prog = document.getElementById('prog');
+
+function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0')+':'+String(Math.floor(s%60)).padStart(2,'0'); }
+
+function pitch(){
+  ctx.fillStyle = '#1c5a2a'; ctx.fillRect(0,0,W,H);
+  for (let i=0;i<8;i++){ ctx.fillStyle = i%2 ? '#1f6330' : '#1c5a2a'; ctx.fillRect(i*W/8,0,W/8,H); }
+  ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = 3;
+  ctx.strokeRect(80,60,W-160,H-120);
+  ctx.beginPath(); ctx.moveTo(W/2,60); ctx.lineTo(W/2,H-60); ctx.stroke();
+  ctx.beginPath(); ctx.arc(W/2,H/2,90,0,Math.PI*2); ctx.stroke();
+  ctx.strokeRect(80,H/2-150,160,300); ctx.strokeRect(W-240,H/2-150,160,300);
+}
+
+function ring(x,y,r,color,lw=3){
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = lw; ctx.shadowColor = color; ctx.shadowBlur = 12;
+  ctx.beginPath(); ctx.ellipse(x,y,r,r*0.38,0,0,Math.PI*2); ctx.stroke(); ctx.restore();
+}
+
+function step(dt){
+  t += dt;
+  // wander
+  players.forEach(p => {
+    if (Math.random() < 0.02) { p.tx = 120 + Math.random()*(W-240); p.ty = 100 + Math.random()*(H-200); }
+    p.x += (p.tx-p.x)*0.02; p.y += (p.ty-p.y)*0.02;
+  });
+  // ball follows holder, passes occasionally
+  const h = players[ball.holder];
+  ball.hold += dt;
+  if (ball.hold > 3 + Math.random()*2) { ball.holder = Math.floor(Math.random()*players.length); ball.hold = 0; }
+  ball.x += (h.x+14-ball.x)*0.15; ball.y += (h.y+2-ball.y)*0.15;
+}
+
+function draw(){
+  pitch();
+  const carrier = players[ball.holder];
+  // nearest opponent
+  let near = null, best = 1e9;
+  players.forEach(p => { if (p.team !== carrier.team) { const d = Math.hypot(p.x-carrier.x, p.y-carrier.y); if (d < best) { best = d; near = p; } } });
+  const dm = best / PX_PER_M;
+  const pressure = dm < THRESH_M;
+
+  players.forEach(p => {
+    const isC = p === carrier;
+    ring(p.x, p.y+p.h/2, 26, isC ? (pressure ? 'var(--red)'.replace('var(--red)','#ff3b5c') : '#ffffff') : '#35e0ff', isC ? 4 : 3);
+    // stick figure body so it reads as a person
+    ctx.fillStyle = p.team === 'A' ? '#dfe7f0' : '#ffd34d';
+    ctx.fillRect(p.x-7, p.y-p.h/2, 14, p.h);
+  });
+  ring(ball.x, ball.y+6, 12, '#ff9f2e', 3);
+  ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(ball.x, ball.y, 6, 0, Math.PI*2); ctx.fill();
+
+  // pressure line
+  if (near) {
+    ctx.save(); ctx.setLineDash([10,8]); ctx.strokeStyle = pressure ? '#ff3b5c' : '#ff9f2e'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(carrier.x, carrier.y+carrier.h/2); ctx.lineTo(near.x, near.y+near.h/2); ctx.stroke(); ctx.restore();
+    const mx = (carrier.x+near.x)/2, my = (carrier.y+near.y)/2 + 30;
+    ctx.font = '600 20px system-ui'; ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(mx-44, my-18, 88, 26);
+    ctx.fillStyle = pressure ? '#ff3b5c' : '#ffd9a8'; ctx.textAlign = 'center'; ctx.fillText(dm.toFixed(1)+'m est.', mx, my+2);
+  }
+
+  badge.classList.toggle('on', pressure);
+  if (pressure && t - lastEvent > 2.5) {
+    lastEvent = t; events++;
+    const el = document.createElement('div'); el.className = 'ev';
+    el.innerHTML = `<span class="t">${fmt(t)}</span> &nbsp; carrier #${ball.holder+1} closed down <span class="d">${dm.toFixed(1)}m</span> by #${players.indexOf(near)+1}`;
+    log.prepend(el);
+  }
+  clock.textContent = fmt(t % 90);
+  prog.style.width = ((t % 90)/90*100)+'%';
+}
+
+let last = performance.now();
+function loop(now){ const dt = Math.min(0.05,(now-last)/1000); last = now; step(dt); draw(); requestAnimationFrame(loop); }
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
