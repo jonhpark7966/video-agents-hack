@@ -27,7 +27,7 @@ thing the two teams share.
 ## Run
 
 ```sh
-samples/fetch.sh                                            # once; clips are gitignored
+samples/fetch.sh                                            # optional; clips are committed
 python3 pipeline/loop.py samples/wz1r_VJaJZw_5836-5914.mp4  # ~10s, renders each iteration
 python3 pipeline/loop.py samples/wz1r_VJaJZw_5836-5914.mp4 --no-render  # JSON only
 ```

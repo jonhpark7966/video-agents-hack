@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Re-download the sample clips locally. The videos are third-party footage,
-# so they stay out of git (see .gitignore); this script is the source of truth.
+# Re-download the sample clips. The videos are third-party footage,
+# committed under permission; this script records where they came from.
 set -euo pipefail
 cd "$(dirname "$0")"
 
