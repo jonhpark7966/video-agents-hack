@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overlay history</title>
+<style>
+  :root {
+    --bg: #12160f;
+    --card: #1c2418;
+    --line: #31402a;
+    --text: #f4f1e6;
+    --muted: #b7c2ac;
+    --accent: #dff25a;
+    --bad: #ff7a55;
+    --pick: #dff25a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.45 "Avenir Next", "Segoe UI", sans-serif;
+  }
+  header, main { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+  header { padding: 28px 0 8px; }
+  h1 { font-size: 28px; font-weight: 650; letter-spacing: -0.03em; margin: 0 0 6px; }
+  h2 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 28px 0 12px; }
+  .phase { display: inline-block; background: var(--accent); color: #1a2008; font-weight: 650; border-radius: 999px; padding: 4px 10px; font-size: 13px; }
+  .sub { color: var(--muted); margin: 10px 0 0; max-width: 68ch; }
+  a { color: var(--accent); }
+  .row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .sources { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .sources video, .card video, .picked video { width: 100%; background: #000; border-radius: 8px; display: block; }
+  .card, .note, .source {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .source h3, .card h3 { margin: 0 0 8px; font-size: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .picked { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .card.winner { outline: 2px solid var(--pick); }
+  .meta { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; margin: 8px 0 4px; }
+  .style { font-weight: 700; }
+  .score { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 700; }
+  .blurb, .summary, .issue, .empty { color: var(--muted); font-size: 13px; }
+  .summary { color: var(--text); margin: 6px 0; }
+  .issue { margin: 0; padding-left: 16px; }
+  .labels { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .labels span, .legend span {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-size: 12px;
+  }
+  .bars { display: grid; gap: 3px; margin: 8px 0; }
+  .bar { display: grid; grid-template-columns: 78px 1fr 28px; gap: 6px; align-items: center; font-size: 11px; color: var(--muted); }
+  .bar i { display: block; height: 6px; background: #2a3324; border-radius: 99px; }
+  .bar i b { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+  .ranks { display: flex; gap: 6px; margin-top: 8px; }
+  .ranks button, button.save {
+    background: transparent; color: var(--text); border: 1px solid var(--line);
+    border-radius: 8px; padding: 6px 10px; cursor: pointer; font: inherit;
+  }
+  .ranks button.on { background: var(--accent); color: #1a2008; border-color: var(--accent); font-weight: 700; }
+  .badge { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #1a2008; background: var(--pick); border-radius: 99px; padding: 2px 6px; }
+  .err { color: var(--bad); font-size: 13px; }
+  .dock {
+    position: sticky; bottom: 0; background: rgba(18, 22, 15, 0.94);
+    border-top: 1px solid var(--line); padding: 12px 0 16px; margin-top: 20px;
+  }
+  .dock .inner { width: min(1180px, calc(100% - 32px)); margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end; }
+  textarea { width: 100%; min-height: 64px; resize: vertical; background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 8px; font: inherit; }
+  button.save { background: var(--accent); color: #1a2008; font-weight: 700; }
+  .saved { color: var(--accent); font-size: 13px; margin: 0; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; }
+  @media (max-width: 900px) {
+    .grid, .sources, .picked { grid-template-columns: 1fr; }
+    .dock .inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="phase" id="phase">loading</div>
+  <h1>Overlay history</h1>
+  <p class="sub" id="lede">Five passes. Each pass tries a few overlay styles on the same 8 seconds. The highest score is carried forward. Rank the ones you want the next pass to learn from. <a href="/demo">Open the demo</a>.</p>
+</header>
+<main id="main"></main>
+<div class="dock">
+  <div class="inner">
+    <label>Note for the next pass
+      <textarea id="note" placeholder="Keep the arrow. Drop the giant words. The disc was on the wrong player."></textarea>
+    </label>
+    <div>
+      <button class="save" id="save" type="button">Save ranks</button>
+      <p class="saved" id="saved"></p>
+    </div>
+  </div>
+</div>
+<script>
+const chosen = {};
+let noteDirty = false;
+let lastKey = "";
+const noteEl = document.getElementById("note");
+noteEl.addEventListener("input", () => { noteDirty = true; });
+
+function el(tag, attrs, text) {
+  const node = document.createElement(tag);
+  for (const [key, value] of Object.entries(attrs || {})) {
+    if (key === "class") node.className = value;
+    else node.setAttribute(key, value);
+  }
+  if (text != null) node.textContent = text;
+  return node;
+}
+
+function videoOf(src, id) {
+  const video = el("video", { controls: "", preload: "none", playsinline: "", "data-id": id || "" });
+  video.muted = true;
+  video.src = src;
+  return video;
+}
+
+function bars(scores) {
+  const wrap = el("div", { class: "bars" });
+  for (const [name, value] of Object.entries(scores || {})) {
+    const row = el("div", { class: "bar" });
+    row.append(el("span", {}, name));
+    const track = el("i");
+    const fill = el("b");
+    fill.style.width = Math.round((Number(value) || 0) * 100) + "%";
+    track.append(fill);
+    row.append(track, el("span", {}, (Number(value) || 0).toFixed(2)));
+    wrap.append(row);
+  }
+  return wrap;
+}
+
+function card(iteration, variant, picked) {
+  const node = el("article", { class: variant.id === picked ? "card winner" : "card" });
+  const head = el("div", { class: "meta" });
+  const title = el("div", { class: "style" }, variant.style);
+  if (variant.id === picked) title.append(" ", el("span", { class: "badge" }, "picked"));
+  head.append(title, el("div", { class: "score" }, variant.score == null ? "—" : Number(variant.score).toFixed(2)));
+  node.append(head);
+  if (variant.video) node.append(videoOf("/media/" + variant.video, iteration + ":" + variant.id));
+  if (variant.blurb) node.append(el("p", { class: "blurb" }, variant.blurb));
+  if (variant.labels && variant.labels.length) {
+    const labels = el("div", { class: "labels" });
+    variant.labels.forEach((text) => labels.append(el("span", {}, text)));
+    node.append(labels);
+  }
+  if (variant.summary) node.append(el("p", { class: "summary" }, variant.summary));
+  if (variant.scores && Object.keys(variant.scores).length) node.append(bars(variant.scores));
+  const list = el("ul", { class: "issue" });
+  (variant.issues || []).slice(0, 4).forEach((issue) => {
+    list.append(el("li", {}, (issue.axis ? issue.axis + ": " : "") + (issue.detail || "")));
+  });
+  if (list.childNodes.length) node.append(list);
+  if (variant.error) node.append(el("p", { class: "err" }, variant.error));
+  const ranks = el("div", { class: "ranks" });
+  const key = iteration + ":" + variant.id;
+  for (const rank of [1, 2, 3]) {
+    const button = el("button", { type: "button" }, String(rank));
+    if (chosen[key] === rank) button.classList.add("on");
+    button.addEventListener("click", () => {
+      chosen[key] = chosen[key] === rank ? null : rank;
+      document.getElementById("saved").textContent = "";
+      button.parentElement.querySelectorAll("button").forEach((other) => other.classList.remove("on"));
+      if (chosen[key]) button.classList.add("on");
+    });
+    ranks.append(button);
+  }
+  node.append(el("p", { class: "blurb" }, "Rank 1 is the one to learn from"), ranks);
+  return node;
+}
+
+function render(data) {
+  const main = document.getElementById("main");
+  const times = {};
+  main.querySelectorAll("video").forEach((video) => {
+    if (video.dataset.id && video.currentTime > 0.2) times[video.dataset.id] = video.currentTime;
+  });
+  main.replaceChildren();
+  document.getElementById("phase").textContent = data.phase || data.status || "idle";
+
+  if (data.frame_track) {
+    const feature = el("section", { class: "source" });
+    feature.append(el("h3", {}, "Frame-level ball track"));
+    feature.append(videoOf("/media/" + data.frame_track, "frame-track"));
+    const note = data.frame_note || "Ball box on every frame. A ring fires when the ball meets a player.";
+    feature.append(el("p", { class: "summary" }, note));
+    if (data.frame_hits && data.frame_hits.length) {
+      const labels = el("div", { class: "labels" });
+      data.frame_hits.forEach((hit) => labels.append(el("span", {}, hit.kind + " " + Number(hit.t).toFixed(2) + "s")));
+      feature.append(labels);
+    }
+    main.append(feature);
+  }
+
+  if (data.scene_summary) {
+    const scene = el("p", { class: "sub" }, "Reason saw: " + data.scene_summary);
+    main.append(scene);
+  }
+
+  const sources = el("section", { class: "sources" });
+  if (data.video) {
+    const box = el("div", { class: "source" });
+    box.append(el("h3", {}, "Input, 0–8s"), videoOf("/media/" + data.video, "input"));
+    sources.append(box);
+  }
+  if (data.reference) {
+    const box = el("div", { class: "source" });
+    box.append(el("h3", {}, "One reference — role-marker, not the only target"), videoOf("/media/" + data.reference, "reference"));
+    sources.append(box);
+  }
+  if (sources.childNodes.length) main.append(sources);
+
+  const legend = el("div", { class: "legend" });
+  ["role-marker", "telestrator", "social-hook", "broadcast-strap", "data-chip"].forEach((name) => {
+    legend.append(el("span", {}, name));
+  });
+  main.append(el("h2", {}, "Styles in the guide"), legend);
+
+  const picked = el("div", { class: "picked" });
+  (data.iterations || []).forEach((iter) => {
+    const variant = (iter.variants || []).find((item) => item.id === iter.picked);
+    if (!variant) return;
+    const box = el("div", { class: "source" });
+    box.append(el("h3", {}, "Iter " + iter.index + " · " + variant.style));
+    if (variant.video) box.append(videoOf("/media/" + variant.video, "pick-" + iter.index));
+    box.append(el("p", { class: "score" }, variant.score == null ? "—" : Number(variant.score).toFixed(2)));
+    picked.append(box);
+  });
+  if (picked.childNodes.length) {
+    main.append(el("h2", {}, "What was carried forward"), picked);
+  }
+
+  (data.iterations || []).forEach((iter) => {
+    main.append(el("h2", {}, "Iteration " + iter.index + " — everything tried"));
+    const grid = el("div", { class: "grid" });
+    (iter.variants || []).forEach((variant) => grid.append(card(iter.index, variant, iter.picked)));
+    main.append(grid);
+  });
+
+  if (!data.iterations || !data.iterations.length) {
+    main.append(el("p", { class: "empty" }, "Waiting for the first variant. This page refreshes on its own."));
+  }
+
+  main.querySelectorAll("video").forEach((video) => {
+    const t = times[video.dataset.id];
+    if (!t) return;
+    video.addEventListener("loadedmetadata", () => { video.currentTime = t; }, { once: true });
+  });
+}
+
+async function refresh() {
+  const data = await (await fetch("/api/manifest")).json();
+  const key = JSON.stringify({ phase: data.phase, status: data.status, iterations: data.iterations, summary: data.scene_summary, frame: data.frame_track });
+  if (data.ranks && data.ranks.note && !noteDirty && !noteEl.value) noteEl.value = data.ranks.note;
+  if (data.ranks) {
+    for (const item of data.ranks.items || []) {
+      const id = item.iteration + ":" + item.variant;
+      if (!(id in chosen)) chosen[id] = item.rank;
+    }
+  }
+  if (key !== lastKey) {
+    lastKey = key;
+    render(data);
+  }
+  document.body.dataset.run = data.run || "";
+  return data;
+}
+
+document.getElementById("save").addEventListener("click", async () => {
+  const run = document.body.dataset.run;
+  const items = Object.entries(chosen).filter(([, rank]) => rank).map(([id, rank]) => {
+    const [iteration, variant] = id.split(":");
+    const style = variant.split("_").slice(1).join("_");
+    return { iteration: Number(iteration), variant, style, rank };
+  });
+  const res = await fetch("/api/ranks", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ run, note: noteEl.value, items }),
+  });
+  const body = await res.json();
+  document.getElementById("saved").textContent = res.ok
+    ? "Saved " + body.saved + " ranks. The next iteration reads this."
+    : "Could not save";
+});
+
+refresh();
+setInterval(() => { refresh().catch(() => {}); }, 2000);
+</script>
+</body>
+</html>
