@@ -28,6 +28,7 @@
   h2 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 28px 0 12px; }
   .phase { display: inline-block; background: var(--accent); color: #1a2008; font-weight: 650; border-radius: 999px; padding: 4px 10px; font-size: 13px; }
   .sub { color: var(--muted); margin: 10px 0 0; max-width: 68ch; }
+  a { color: var(--accent); }
   .row { display: flex; gap: 14px; flex-wrap: wrap; }
   .sources { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .sources video, .card video, .picked video { width: 100%; background: #000; border-radius: 8px; display: block; }
@@ -85,7 +86,7 @@
 <header>
   <div class="phase" id="phase">loading</div>
   <h1>Overlay history</h1>
-  <p class="sub" id="lede">Five passes. Each pass tries a few overlay styles on the same 8 seconds. The highest score is carried forward. Rank the ones you want the next pass to learn from.</p>
+  <p class="sub" id="lede">Five passes. Each pass tries a few overlay styles on the same 8 seconds. The highest score is carried forward. Rank the ones you want the next pass to learn from. <a href="/demo">Open the demo</a>.</p>
 </header>
 <main id="main"></main>
 <div class="dock">
@@ -186,6 +187,20 @@ function render(data) {
   main.replaceChildren();
   document.getElementById("phase").textContent = data.phase || data.status || "idle";
 
+  if (data.frame_track) {
+    const feature = el("section", { class: "source" });
+    feature.append(el("h3", {}, "Frame-level ball track"));
+    feature.append(videoOf("/media/" + data.frame_track, "frame-track"));
+    const note = data.frame_note || "Ball box on every frame. A ring fires when the ball meets a player.";
+    feature.append(el("p", { class: "summary" }, note));
+    if (data.frame_hits && data.frame_hits.length) {
+      const labels = el("div", { class: "labels" });
+      data.frame_hits.forEach((hit) => labels.append(el("span", {}, hit.kind + " " + Number(hit.t).toFixed(2) + "s")));
+      feature.append(labels);
+    }
+    main.append(feature);
+  }
+
   if (data.scene_summary) {
     const scene = el("p", { class: "sub" }, "Reason saw: " + data.scene_summary);
     main.append(scene);
@@ -244,7 +259,7 @@ function render(data) {
 
 async function refresh() {
   const data = await (await fetch("/api/manifest")).json();
-  const key = JSON.stringify({ phase: data.phase, status: data.status, iterations: data.iterations, summary: data.scene_summary });
+  const key = JSON.stringify({ phase: data.phase, status: data.status, iterations: data.iterations, summary: data.scene_summary, frame: data.frame_track });
   if (data.ranks && data.ranks.note && !noteDirty && !noteEl.value) noteEl.value = data.ranks.note;
   if (data.ranks) {
     for (const item of data.ranks.items || []) {

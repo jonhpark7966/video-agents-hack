@@ -17,6 +17,8 @@ import zlib
 import claude_bin
 
 FONT_CANDIDATES = [
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
     "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
     "/System/Library/Fonts/Supplemental/Arial.ttf",
     "/Library/Fonts/Arial.ttf",
@@ -286,7 +288,7 @@ def box_at(keys, t):
     return keys[-1]["box"]
 
 
-def _piecewise(keys, fn):
+def _piecewise(keys, fn, clock="t"):
     pts = sorted(keys, key=lambda k: k["t"])
     times = [p["t"] for p in pts]
     vals = [float(fn(p["box"])) for p in pts]
@@ -297,9 +299,9 @@ def _piecewise(keys, fn):
         t0, t1 = times[i], times[i + 1]
         v0, v1 = vals[i], vals[i + 1]
         span = t1 - t0
-        seg = f"{v0:.2f}" if span < 1e-3 else f"({v0:.2f}+({v1 - v0:.2f})*(t-{t0:.3f})/{span:.3f})"
-        expr = f"if(lt(t,{t1:.3f}),{seg},{expr})"
-    return f"if(lt(t,{times[0]:.3f}),{vals[0]:.2f},{expr})"
+        seg = f"{v0:.2f}" if span < 1e-3 else f"({v0:.2f}+({v1 - v0:.2f})*({clock}-{t0:.3f})/{span:.3f})"
+        expr = f"if(lt({clock},{t1:.3f}),{seg},{expr})"
+    return f"if(lt({clock},{times[0]:.3f}),{vals[0]:.2f},{expr})"
 
 
 def _esc(expr):
@@ -355,14 +357,24 @@ def render(video, overlay, scene, out):
                 f"overlay=x='{_esc(x)}':y='{_esc(y)}':enable='{enable}':format=auto:eof_action=repeat"
             )
         elif kind == "ring" and track:
-            x = _piecewise(track["keys"], lambda b, w=width: max(0, b[0] * w - 6))
-            y = _piecewise(track["keys"], lambda b, h=height: max(0, b[1] * h - 6))
-            w = _piecewise(track["keys"], lambda b, W=width: min(max(36, b[2] * W + 12), W * 0.25))
-            h = _piecewise(track["keys"], lambda b, H=height: min(max(56, b[3] * H + 12), H * 0.3))
-            video_filter(
-                f"drawbox=x='{_esc(x)}':y='{_esc(y)}':w='{_esc(w)}':h='{_esc(h)}':"
-                f"color={color}@0.95:thickness=4:enable='{enable}'"
-            )
+            # drawbox names its thickness option `t`, which hides the timestamp.
+            # Step the box from key to key instead of writing a time expression.
+            keys = sorted(track["keys"], key=lambda key: key["t"])
+            spans = list(zip(keys, keys[1:])) or [(keys[0], {"t": item["end"], "box": keys[0]["box"]})]
+            for a, b in spans:
+                start = max(item["start"], a["t"])
+                end = min(item["end"], b["t"])
+                if end - start < 0.04:
+                    continue
+                box = a["box"]
+                x = int(max(0, box[0] * width - 6))
+                y = int(max(0, box[1] * height - 6))
+                bw = int(min(max(36, box[2] * width + 12), width * 0.25))
+                bh = int(min(max(56, box[3] * height + 12), height * 0.3))
+                video_filter(
+                    f"drawbox=x={x}:y={y}:w={bw}:h={bh}:color={color}@0.95:"
+                    f"thickness=4:enable='{_enable(start, end)}'"
+                )
         elif kind == "arrow" and track and tracks.get(item.get("to")):
             mid = (item["start"] + item["end"]) / 2
             x0, y0 = _feet(track, mid, width, height)

@@ -93,7 +93,18 @@ def _norm_box(box):
 
 
 def perceive(video, frame_dir=None):
-    """Step 1. Claude looks at frames and writes the scene. Tracks are estimates."""
+    """Step 1. Prefer the clip already indexed on VAST. Otherwise Cosmos reads frames."""
+    try:
+        import vss_scene
+        indexed = vss_scene.from_indexed(video)
+        if indexed and len(indexed.get("tracks") or []) >= 2:
+            print(
+                f"  perceive: using VAST tracks for {indexed.get('vast_video') or 'indexed clip'}",
+                flush=True,
+            )
+            return indexed
+    except Exception as exc:
+        print(f"  perceive: VAST index skipped ({exc})", flush=True)
     meta = probe(video)
     duration = meta["duration"]
     times = sample_times(duration, 5)

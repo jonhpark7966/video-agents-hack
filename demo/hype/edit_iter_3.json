@@ -1,0 +1,1167 @@
+{
+ "video": "samples/20261002_212835_23c4d10d.mp4",
+ "output": {
+  "fps": 30,
+  "size": [
+   1920,
+   1080
+  ]
+ },
+ "interp": "flow",
+ "grade": {
+  "contrast": 1.08,
+  "saturation": 1.28,
+  "vignette": 0.22,
+  "lift": 0.02,
+  "warm": 0.04
+ },
+ "timeline": [
+  {
+   "src": [
+    9.85,
+    10.4
+   ],
+   "speed": 0.6,
+   "tag": "intro"
+  },
+  {
+   "src": [
+    7.0,
+    10.4
+   ],
+   "speed": 5.0,
+   "reverse": true,
+   "tag": "rewind"
+  },
+  {
+   "src": [
+    0,
+    3.1
+   ],
+   "speed": 1.0
+  },
+  {
+   "src": [
+    3.1,
+    5.9
+   ],
+   "speed": 1.4
+  },
+  {
+   "src": [
+    5.9,
+    6.2
+   ],
+   "speed": [
+    1.4,
+    0.45
+   ]
+  },
+  {
+   "src": [
+    6.2,
+    6.6
+   ],
+   "speed": 0.45
+  },
+  {
+   "src": [
+    6.6,
+    6.9
+   ],
+   "speed": [
+    0.45,
+    1.1
+   ]
+  },
+  {
+   "src": [
+    6.9,
+    8.6
+   ],
+   "speed": 1.1
+  },
+  {
+   "src": [
+    8.6,
+    9.17
+   ],
+   "speed": [
+    1.1,
+    0.3
+   ]
+  },
+  {
+   "freeze": 9.17,
+   "dur": 0.9
+  },
+  {
+   "src": [
+    9.17,
+    10.15
+   ],
+   "speed": 0.45
+  },
+  {
+   "src": [
+    10.15,
+    11.0
+   ],
+   "speed": 1.0
+  },
+  {
+   "src": [
+    9.0,
+    10.3
+   ],
+   "speed": 0.45,
+   "tag": "replay"
+  },
+  {
+   "freeze": 10.3,
+   "dur": 1.5,
+   "tag": "end"
+  }
+ ],
+ "points": {
+  "keeper": [
+   [
+    9.83,
+    0.546,
+    0.34
+   ],
+   [
+    9.92,
+    0.56,
+    0.34
+   ],
+   [
+    10.0,
+    0.49,
+    0.35
+   ],
+   [
+    10.08,
+    0.47,
+    0.355
+   ],
+   [
+    10.17,
+    0.42,
+    0.365
+   ]
+  ],
+  "shooter": [
+   [
+    7.5,
+    0.245,
+    0.575
+   ],
+   [
+    7.67,
+    0.259,
+    0.558
+   ],
+   [
+    7.83,
+    0.264,
+    0.55
+   ],
+   [
+    8.0,
+    0.292,
+    0.542
+   ],
+   [
+    8.17,
+    0.316,
+    0.525
+   ],
+   [
+    8.33,
+    0.33,
+    0.517
+   ],
+   [
+    8.5,
+    0.342,
+    0.517
+   ],
+   [
+    8.67,
+    0.358,
+    0.5
+   ],
+   [
+    8.83,
+    0.377,
+    0.49
+   ],
+   [
+    9.0,
+    0.386,
+    0.483
+   ],
+   [
+    9.17,
+    0.39,
+    0.48
+   ],
+   [
+    9.3,
+    0.39,
+    0.48
+   ]
+  ],
+  "defender": [
+   [
+    8.4,
+    0.428,
+    0.467
+   ],
+   [
+    8.83,
+    0.452,
+    0.49
+   ],
+   [
+    9.0,
+    0.456,
+    0.475
+   ],
+   [
+    9.17,
+    0.46,
+    0.48
+   ]
+  ],
+  "celebrate": [
+   [
+    10.25,
+    0.73,
+    0.8
+   ],
+   [
+    10.5,
+    0.72,
+    0.78
+   ],
+   [
+    10.75,
+    0.755,
+    0.8
+   ],
+   [
+    11.0,
+    0.76,
+    0.8
+   ]
+  ]
+ },
+ "camera": [
+  {
+   "t": {
+    "at": 9.85,
+    "tag": "intro"
+   },
+   "zoom": 1.7,
+   "focus": "ball"
+  },
+  {
+   "t": {
+    "at": 10.4,
+    "tag": "intro"
+   },
+   "zoom": 2.0,
+   "focus": "ball"
+  },
+  {
+   "t": {
+    "at": 10.4,
+    "tag": "rewind"
+   },
+   "zoom": 1.3,
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "t": 0.0,
+   "zoom": 1.15,
+   "focus": "ball"
+  },
+  {
+   "t": 1.6,
+   "zoom": 1.0,
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "t": 3.0,
+   "zoom": 1.2,
+   "focus": "ball"
+  },
+  {
+   "t": 7.4,
+   "zoom": 1.3,
+   "focus": "ball"
+  },
+  {
+   "t": 8.6,
+   "zoom": 1.5,
+   "focus": "shooter"
+  },
+  {
+   "t": 9.17,
+   "zoom": 1.6,
+   "focus": "shooter"
+  },
+  {
+   "t": {
+    "at": 9.17,
+    "plus": 0.6
+   },
+   "zoom": 2.2,
+   "focus": "shooter",
+   "ease": "out"
+  },
+  {
+   "t": 9.3,
+   "zoom": 1.6,
+   "focus": "ball"
+  },
+  {
+   "t": 9.95,
+   "zoom": 1.8,
+   "focus": "ball"
+  },
+  {
+   "t": 10.3,
+   "zoom": 1.3,
+   "focus": [
+    0.6,
+    0.55
+   ]
+  },
+  {
+   "t": 10.7,
+   "zoom": 1.45,
+   "focus": "celebrate"
+  },
+  {
+   "t": {
+    "at": 9.0,
+    "tag": "replay"
+   },
+   "zoom": 1.8,
+   "focus": "ball"
+  },
+  {
+   "t": {
+    "at": 10.1,
+    "tag": "replay"
+   },
+   "zoom": 2.4,
+   "focus": "ball"
+  },
+  {
+   "t": {
+    "at": 10.3,
+    "tag": "end"
+   },
+   "zoom": 2.4,
+   "focus": "ball"
+  },
+  {
+   "t": {
+    "at": 10.3,
+    "tag": "end",
+    "plus": 1.5
+   },
+   "zoom": 1.6,
+   "focus": "ball"
+  }
+ ],
+ "shake": [
+  {
+   "t": {
+    "at": 9.17
+   },
+   "dur": 0.4,
+   "amp": 16
+  },
+  {
+   "t": 10.04,
+   "dur": 0.9,
+   "amp": 26
+  },
+  {
+   "t": {
+    "at": 10.04,
+    "tag": "replay"
+   },
+   "dur": 0.6,
+   "amp": 18
+  },
+  {
+   "t": {
+    "at": 0.0
+   },
+   "dur": 0.3,
+   "amp": 12
+  }
+ ],
+ "fx": [
+  {
+   "kind": "text",
+   "text": "WAIT FOR IT...",
+   "at": {
+    "at": 9.85,
+    "tag": "intro"
+   },
+   "dur": 0.92,
+   "size": 130,
+   "color": "white",
+   "color2": "yellow",
+   "anim": "pop",
+   "pos": [
+    0.5,
+    0.2
+   ],
+   "tags": [
+    "intro"
+   ]
+  },
+  {
+   "kind": "ball_trail",
+   "src": [
+    9.85,
+    10.25
+   ],
+   "length": 0.3,
+   "width": 18,
+   "palette": "fire",
+   "tags": [
+    "intro"
+   ]
+  },
+  {
+   "kind": "vhs",
+   "start": {
+    "at": 10.4,
+    "tag": "rewind"
+   },
+   "end": {
+    "at": 7.0,
+    "tag": "rewind"
+   },
+   "tags": [
+    "rewind"
+   ],
+   "jitter": 14
+  },
+  {
+   "kind": "flash",
+   "at": 0.0,
+   "dur": 0.2,
+   "amount": 0.3
+  },
+  {
+   "kind": "text",
+   "text": "DUKE\nON THE ATTACK",
+   "at": 0.0,
+   "dur": 1.6,
+   "size": 105,
+   "color": "white",
+   "color2": "cyan",
+   "anim": "slide",
+   "exit": "slide",
+   "pos": [
+    0.5,
+    0.8
+   ]
+  },
+  {
+   "kind": "ball_trail",
+   "src": [
+    0,
+    0.85
+   ],
+   "length": 0.4,
+   "width": 10,
+   "palette": "ice"
+  },
+  {
+   "kind": "ball_trail",
+   "src": [
+    2.1,
+    3.1
+   ],
+   "length": 0.7,
+   "width": 16,
+   "palette": "ice"
+  },
+  {
+   "kind": "text",
+   "text": "SWITCH!",
+   "at": 2.2,
+   "dur": 1.0,
+   "size": 150,
+   "color": "cyan",
+   "color2": "white",
+   "anim": "pop",
+   "pos": [
+    0.5,
+    0.22
+   ]
+  },
+  {
+   "kind": "ball_ring",
+   "src": [
+    3.1,
+    7.45
+   ],
+   "radius": 22,
+   "color": "yellow"
+  },
+  {
+   "kind": "text",
+   "text": "TOO SLICK",
+   "at": 6.3,
+   "dur": 1.3,
+   "size": 120,
+   "color": "yellow",
+   "color2": "orange",
+   "anim": "stomp",
+   "pos": [
+    0.5,
+    0.2
+   ],
+   "wobble": 3
+  },
+  {
+   "kind": "tag",
+   "target": "shooter",
+   "src": [
+    7.5,
+    9.12
+   ],
+   "color": "yellow",
+   "label": "#8",
+   "rx": 38,
+   "ry": 13,
+   "height": 0.09,
+   "label_size": 72
+  },
+  {
+   "kind": "tag",
+   "target": "defender",
+   "src": [
+    8.4,
+    9.1
+   ],
+   "color": "red",
+   "rx": 34,
+   "ry": 12,
+   "chevron": false
+  },
+  {
+   "kind": "text",
+   "text": "1 v 1",
+   "at": 8.35,
+   "dur": 0.95,
+   "size": 140,
+   "color": "magenta",
+   "color2": "pink",
+   "anim": "slam",
+   "pos": [
+    0.5,
+    0.8
+   ],
+   "glow": "magenta"
+  },
+  {
+   "kind": "letterbox",
+   "start": 8.75,
+   "end": 10.15,
+   "ratio": 0.1
+  },
+  {
+   "kind": "speed_lines",
+   "start": 9.17,
+   "end": {
+    "at": 9.17,
+    "plus": 0.9
+   },
+   "center": [
+    0.5,
+    0.5
+   ],
+   "amount": 0.9,
+   "color": "white"
+  },
+  {
+   "kind": "tint",
+   "start": 9.17,
+   "end": {
+    "at": 9.17,
+    "plus": 0.9
+   },
+   "amount": 0.3,
+   "shadow": "blue",
+   "highlight": "yellow"
+  },
+  {
+   "kind": "flash",
+   "at": 9.17,
+   "dur": 0.2,
+   "amount": 0.7
+  },
+  {
+   "kind": "shockwave",
+   "at": 9.17,
+   "dur": 0.65,
+   "target": "ball",
+   "radius": 230,
+   "color": "white",
+   "color2": "yellow"
+  },
+  {
+   "kind": "text",
+   "text": "BANG!",
+   "at": 9.17,
+   "dur": 0.9,
+   "size": 170,
+   "color": "yellow",
+   "color2": "orange",
+   "anim": "slam",
+   "pos": [
+    0.5,
+    0.17
+   ],
+   "angle": 5,
+   "out": 0.1
+  },
+  {
+   "kind": "ball_trail",
+   "src": [
+    9.15,
+    10.25
+   ],
+   "length": 0.35,
+   "width": 20,
+   "palette": "fire",
+   "tags": [
+    "main",
+    "replay"
+   ]
+  },
+  {
+   "kind": "tag",
+   "target": "keeper",
+   "src": [
+    9.85,
+    10.15
+   ],
+   "color": "red",
+   "rx": 40,
+   "ry": 14
+  },
+  {
+   "kind": "flash",
+   "at": 10.04,
+   "dur": 0.2,
+   "amount": 0.55,
+   "color": "white"
+  },
+  {
+   "kind": "shockwave",
+   "at": 10.04,
+   "dur": 0.8,
+   "target": "ball",
+   "radius": 380,
+   "color": "gold",
+   "color2": "white"
+  },
+  {
+   "kind": "chroma",
+   "at": 10.04,
+   "dur": 0.45,
+   "px": 18
+  },
+  {
+   "kind": "zoom_blur",
+   "at": 10.04,
+   "dur": 0.35,
+   "amount": 0.07
+  },
+  {
+   "kind": "text",
+   "text": "GOOOAL!",
+   "at": 10.04,
+   "dur": 2.0,
+   "size": 250,
+   "color": "gold",
+   "color2": "orange",
+   "anim": "slam",
+   "pos": [
+    0.5,
+    0.4
+   ],
+   "glow": "orange",
+   "wobble": 2
+  },
+  {
+   "kind": "confetti",
+   "at": 10.04,
+   "dur": 3.5
+  },
+  {
+   "kind": "tag",
+   "target": "celebrate",
+   "src": [
+    10.25,
+    11.0
+   ],
+   "color": "cyan",
+   "rx": 40,
+   "ry": 14
+  },
+  {
+   "kind": "chroma",
+   "at": {
+    "at": 9.0,
+    "tag": "replay"
+   },
+   "dur": 0.35,
+   "px": 30,
+   "tags": [
+    "replay"
+   ]
+  },
+  {
+   "kind": "flash",
+   "at": {
+    "at": 9.0,
+    "tag": "replay"
+   },
+   "dur": 0.2,
+   "amount": 0.6,
+   "tags": [
+    "replay"
+   ]
+  },
+  {
+   "kind": "badge",
+   "text": "REPLAY",
+   "start": {
+    "at": 9.0,
+    "tag": "replay"
+   },
+   "end": {
+    "at": 10.3,
+    "tag": "replay"
+   },
+   "pos": [
+    0.86,
+    0.13
+   ],
+   "size": 46,
+   "tags": [
+    "replay"
+   ]
+  },
+  {
+   "kind": "shockwave",
+   "at": {
+    "at": 9.17,
+    "tag": "replay"
+   },
+   "dur": 0.6,
+   "target": "ball",
+   "radius": 200,
+   "tags": [
+    "replay"
+   ]
+  },
+  {
+   "kind": "text",
+   "text": "WHAT A\nSTRIKE",
+   "at": {
+    "at": 10.3,
+    "tag": "end"
+   },
+   "dur": 1.5,
+   "size": 170,
+   "color": "white",
+   "color2": "gold",
+   "anim": "slam",
+   "pos": [
+    0.5,
+    0.42
+   ],
+   "tags": [
+    "end"
+   ]
+  },
+  {
+   "kind": "confetti",
+   "at": {
+    "at": 10.3,
+    "tag": "end"
+   },
+   "dur": 1.5,
+   "tags": [
+    "end"
+   ]
+  },
+  {
+   "kind": "tint",
+   "start": {
+    "at": 10.3,
+    "tag": "end"
+   },
+   "end": {
+    "at": 10.3,
+    "tag": "end",
+    "plus": 1.5
+   },
+   "amount": 0.25,
+   "shadow": "blue",
+   "highlight": "gold",
+   "tags": [
+    "end"
+   ]
+  },
+  {
+   "kind": "text",
+   "text": "REWIND",
+   "at": {
+    "at": 10.4,
+    "tag": "rewind"
+   },
+   "dur": 0.68,
+   "size": 120,
+   "color": "white",
+   "color2": "cyan",
+   "anim": "stomp",
+   "pos": [
+    0.5,
+    0.5
+   ],
+   "italic": 0,
+   "tags": [
+    "rewind"
+   ]
+  },
+  {
+   "kind": "ball_trail",
+   "src": [
+    3.1,
+    7.45
+   ],
+   "length": 0.25,
+   "width": 10,
+   "palette": "gold"
+  },
+  {
+   "kind": "speed_lines",
+   "start": 6.2,
+   "end": 6.6,
+   "center": [
+    0.5,
+    0.5
+   ],
+   "amount": 0.5
+  },
+  {
+   "kind": "card",
+   "big": "#8",
+   "small": "DUKE",
+   "start": {
+    "at": 9.17,
+    "plus": 0.1
+   },
+   "end": {
+    "at": 9.17,
+    "plus": 0.9
+   },
+   "dur": 0.8,
+   "at": {
+    "at": 9.17,
+    "plus": 0.1
+   },
+   "color": "blue",
+   "color2": [
+    10,
+    20,
+    70
+   ],
+   "edge": "gold",
+   "pos": [
+    0.13,
+    0.55
+   ],
+   "scale": 0.8
+  },
+  {
+   "kind": "shockwave",
+   "at": 10.04,
+   "dur": 0.6,
+   "target": [
+    0.5,
+    0.3
+   ],
+   "radius": 160,
+   "color": "white",
+   "color2": "cyan"
+  }
+ ],
+ "audio": {
+  "orig_gain": 0.9,
+  "slow_gain": 0.6,
+  "replay_gain": 0.5,
+  "drive": 1.15
+ },
+ "sfx": [
+  {
+   "kind": "crowd_roar",
+   "t": {
+    "at": 9.85,
+    "tag": "intro"
+   },
+   "gain": 0.45,
+   "params": {
+    "dur": 1.2,
+    "swell": 0.3
+   }
+  },
+  {
+   "kind": "whoosh",
+   "t": {
+    "at": 10.4,
+    "tag": "rewind"
+   },
+   "gain": 0.6,
+   "params": {
+    "dur": 0.6,
+    "rise": false
+   }
+  },
+  {
+   "kind": "glitch",
+   "t": {
+    "at": 10.4,
+    "tag": "rewind"
+   },
+   "gain": 0.5
+  },
+  {
+   "kind": "glitch",
+   "t": {
+    "at": 10.4,
+    "tag": "rewind",
+    "plus": 0.35
+   },
+   "gain": 0.4
+  },
+  {
+   "kind": "slam",
+   "t": 0.0,
+   "gain": 0.6
+  },
+  {
+   "kind": "beat",
+   "t": 0.0,
+   "until": 8.95,
+   "bpm": 140,
+   "gain": 0.5
+  },
+  {
+   "kind": "swish",
+   "t": 0.0,
+   "gain": 0.5
+  },
+  {
+   "kind": "whoosh",
+   "t": 1.9,
+   "gain": 0.7
+  },
+  {
+   "kind": "swish",
+   "t": 2.2,
+   "gain": 0.5
+  },
+  {
+   "kind": "slam",
+   "t": 6.3,
+   "gain": 0.45
+  },
+  {
+   "kind": "slam",
+   "t": 8.35,
+   "gain": 0.5
+  },
+  {
+   "kind": "riser",
+   "t": 9.17,
+   "pre": 1.2,
+   "gain": 0.6
+  },
+  {
+   "kind": "kick",
+   "t": 9.17,
+   "gain": 1.0
+  },
+  {
+   "kind": "shutter",
+   "t": 9.17,
+   "gain": 0.7
+  },
+  {
+   "kind": "boom",
+   "t": 9.17,
+   "gain": 0.7,
+   "duck": 0.6
+  },
+  {
+   "kind": "reverse_cymbal",
+   "t": 10.04,
+   "pre": 0.9,
+   "gain": 0.6
+  },
+  {
+   "kind": "boom",
+   "t": 10.04,
+   "gain": 0.9,
+   "duck": 1.0
+  },
+  {
+   "kind": "slam",
+   "t": 10.04,
+   "gain": 0.7
+  },
+  {
+   "kind": "crowd_roar",
+   "t": 10.04,
+   "gain": 0.9,
+   "params": {
+    "dur": 5.0
+   }
+  },
+  {
+   "kind": "air_horn",
+   "t": {
+    "at": 10.04,
+    "plus": 0.2
+   },
+   "gain": 0.45
+  },
+  {
+   "kind": "glitch",
+   "t": {
+    "at": 9.0,
+    "tag": "replay"
+   },
+   "gain": 0.5
+  },
+  {
+   "kind": "whoosh",
+   "t": {
+    "at": 9.0,
+    "tag": "replay"
+   },
+   "gain": 0.5
+  },
+  {
+   "kind": "crowd_roar",
+   "t": {
+    "at": 9.0,
+    "tag": "replay"
+   },
+   "gain": 0.35,
+   "params": {
+    "dur": 3.0
+   }
+  },
+  {
+   "kind": "kick",
+   "t": {
+    "at": 9.17,
+    "tag": "replay"
+   },
+   "gain": 0.8
+  },
+  {
+   "kind": "boom",
+   "t": {
+    "at": 10.04,
+    "tag": "replay"
+   },
+   "gain": 0.6
+  },
+  {
+   "kind": "bass_drop",
+   "t": {
+    "at": 10.3,
+    "tag": "end"
+   },
+   "gain": 0.8
+  },
+  {
+   "kind": "slam",
+   "t": {
+    "at": 10.3,
+    "tag": "end"
+   },
+   "gain": 0.6
+  },
+  {
+   "kind": "heartbeat",
+   "t": {
+    "at": 9.17,
+    "plus": 0.05
+   },
+   "gain": 0.8,
+   "params": {
+    "dur": 0.85,
+    "bpm": 120
+   }
+  },
+  {
+   "kind": "whizz",
+   "t": {
+    "at": 9.17,
+    "plus": 0.9
+   },
+   "gain": 0.7,
+   "params": {
+    "dur": 1.6
+   }
+  },
+  {
+   "kind": "whoosh",
+   "t": 6.2,
+   "gain": 0.45,
+   "params": {
+    "dur": 0.5
+   }
+  },
+  {
+   "kind": "swish",
+   "t": {
+    "at": 9.17,
+    "plus": 0.1
+   },
+   "gain": 0.5
+  },
+  {
+   "kind": "tick",
+   "t": 8.35,
+   "gain": 0.4
+  }
+ ]
+}

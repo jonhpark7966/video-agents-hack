@@ -18,6 +18,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 RUNS = os.path.join(ROOT, "runs")
 SAMPLES = os.path.join(ROOT, "samples")
 PAGE = os.path.join(os.path.dirname(__file__), "index.html")
+DEMO = os.path.join(os.path.dirname(__file__), "demo.html")
+DEMO_DATA = os.path.join(os.path.dirname(__file__), "demo.json")
 PORT = int(os.environ.get("PORT", "8765"))
 
 
@@ -70,6 +72,12 @@ class Handler(BaseHTTPRequestHandler):
         path = self.path.split("?", 1)[0]
         if path in ("/", "/index.html"):
             self._send_bytes(200, "text/html; charset=utf-8", open(PAGE, "rb").read())
+            return
+        if path == "/demo":
+            self._send_bytes(200, "text/html; charset=utf-8", open(DEMO, "rb").read())
+            return
+        if path == "/api/demo":
+            self._send_bytes(200, "application/json", open(DEMO_DATA, "rb").read())
             return
         if path == "/api/manifest":
             query = self.path.split("?", 1)[1] if "?" in self.path else ""

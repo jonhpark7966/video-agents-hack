@@ -2,7 +2,7 @@
 
 The reference clip `samples/g1nYknl92wI_0842-0852.mp4` is one good answer, not the only one. It is a YouTube tactics film (DK Falcon): a yellow disc under the ball carrier, a one-word role such as "Winger" in white, and sometimes a single arrow for the pass. Broadcasts, pundit shows, and social edits draw on the same footage for different jobs. Each variant follows exactly one style below. Do not mix styles in one variant.
 
-This test clip is the first 8 seconds of a wide Premier League goal (Rodrigo Muniz, Sheffield United 3–3 Fulham). The camera stays wide, so players are small. Fulham are in white, Sheffield United are in red-and-white stripes, the goalkeeper is green, the referee is yellow. A broadcast lower-third already sits at the bottom left (crest and the name Rodrigo Muniz). Do not cover that corner and do not redraw the official score bug.
+Read the match, the shirt colors, and any names from the scene summary. Do not assume a different game. Players in a wide broadcast shot are small. A scoreboard or lower-third may already sit in a corner. Do not cover that graphic and do not redraw it.
 
 Shared rules:
 

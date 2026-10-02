@@ -1,0 +1,683 @@
+{
+  "model": "nvidia/cosmos3-nano-reasoner",
+  "title": "How the overlay got to the goal",
+  "lede": "Cosmos Reason watched the indexed play, graded every overlay it was shown, and the cut changed because of what it kept marking wrong.",
+  "originals": [
+    {
+      "label": "First indexed clip",
+      "detail": "10 seconds. The five graded rounds used this file. The reasoner describes a dribble, a pass, a shot, and a save. The goal is not in it yet.",
+      "video": "samples/ZlnY82npUsA_0149-0159.mp4"
+    },
+    {
+      "label": "Clip with the goal",
+      "detail": "11 seconds. The same play, plus the second where the ball is in the net. This is the input for the final cut.",
+      "video": "samples/20261002_212835_23c4d10d.mp4"
+    }
+  ],
+  "reasoning": {
+    "perceive": "A competitive college soccer match between UCLA and Duke with the score tied 1-1 in the second half, featuring dribbling, passing, a shot on goal, and a save by the Duke goalkeeper.",
+    "events": [
+      {
+        "start": 0.4,
+        "end": 3.0,
+        "type": "dribble",
+        "caption": "A UCLA player in a white jersey dribbles the ball near the center of the field while being closely pursued by a Duke player in a blue jersey."
+      },
+      {
+        "start": 3.0,
+        "end": 5.5,
+        "type": "pass",
+        "caption": "The UCLA player in white passes the ball to a teammate also in white, who is positioned closer to the Duke goal."
+      },
+      {
+        "start": 5.5,
+        "end": 7.0,
+        "type": "shot",
+        "caption": "The UCLA teammate takes a shot on goal, but the Duke goalkeeper in yellow makes a save."
+      },
+      {
+        "start": 7.0,
+        "end": 10.05,
+        "type": "clear",
+        "caption": "A Duke player in blue clears the ball, and the play continues with both teams vying for possession in the midfield."
+      }
+    ],
+    "segments": [
+      {
+        "start": 0.0,
+        "text": "The video shows a soccer match between UCLA and Duke, with the score tied at 1-1 in the second half. A player in a white jersey, number 9, dribbles the ball upfield, evading a defender in a blue jersey. He passes to a teammate in white, number 26, who is positioned near the penalty area. The player in white number 26 takes a shot on goal, but the Duke goalkeeper, dressed in yellow, makes a save. The ball is then cleared by a Duke player in blue, and the play continues with both teams contesting for possession. The camera follows the action as players move across the field, with the scoreboard and game clock visible in the top left corner."
+      },
+      {
+        "start": 5.0,
+        "text": "The video shows a soccer match between UCLA and Duke during the NCAA Championship Second Round, with the score tied at 1-1 in the second half. The scene is set on a well-maintained green field with white boundary lines and a goalpost visible in the background. Players from both teams are actively engaged in the game, wearing blue and white uniforms. The clock in the top right corner indicates the remaining time in the second half. The action focuses on a player in a blue uniform who is dribbling the ball near the center of the field, surrounded by opponents in white. As the play develops, the player in blue attempts to maneuver past defenders, but a player in white intercepts the ball and quickly passes it to a teammate. The ball is then crossed into the penalty area, where another player in white takes a shot at the goal. The goalkeeper, dressed in yellow, dives to his left in an attempt to save the shot but fails to stop the ball, which goes into the net. The crowd and stadium environment are not visible..."
+      },
+      {
+        "start": 10.0,
+        "text": "A player in a blue jersey, number 10, takes a shot from outside the penalty area. The ball travels toward the goal, where the goalkeeper in yellow dives to his left in an attempt to save it. The ball beats the goalkeeper and enters the net, resulting in a goal. The player who scored, number 10, runs forward and celebrates with his arms raised. Other players on the field react to the goal, with some raising their arms in celebration or disappointment. The scoreboard shows UCLA 1, Duke 1, with 2:53 remaining in the second half."
+      }
+    ]
+  },
+  "rounds": [
+    {
+      "index": 0,
+      "picked": "telestrator",
+      "score": 1.0,
+      "variants": [
+        {
+          "id": "v0_role-marker",
+          "style": "role-marker",
+          "blurb": "Yellow disc under the ball carrier and a one-word role, like the DK Falcon reference.",
+          "score": 0.24,
+          "scores": {
+            "accuracy": 0.2,
+            "readability": 0.3,
+            "timing": 0.2,
+            "coverage": 0.3,
+            "style": 0.2
+          },
+          "summary": "The overlay incorrectly labels a UCLA player as a 'Winger' during a dribble, but the player is actually a forward or striker. The label remains on the player for too long and does not change when the player passes the ball or takes a shot. The graphic style is overly simplistic and does not match the requested role-marker format.",
+          "issues": [
+            {
+              "axis": "accuracy",
+              "detail": "Labels a UCLA player as a 'Winger' when the player is actually a forward or striker.",
+              "fix": "Correct the role label to match the player's position."
+            },
+            {
+              "axis": "timing",
+              "detail": "The 'Winger' label stays on the player for the entire clip, even after the player passes the ball and takes a shot.",
+              "fix": "Update the label to reflect the player's changing role during the play."
+            },
+            {
+              "axis": "style",
+              "detail": "The overlay uses a simple disc with a single word, which does not match the requested role-marker format.",
+              "fix": "Adopt the requested style with a yellow disc and a one-word role label."
+            }
+          ],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_0/v0_role-marker/overlay.mp4",
+          "picked": false,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        },
+        {
+          "id": "v1_telestrator",
+          "style": "telestrator",
+          "blurb": "Pundit pen: one ring, then one arrow, each with its own short caption.",
+          "score": 1.0,
+          "scores": {
+            "accuracy": 1.0,
+            "readability": 1.0,
+            "timing": 1.0,
+            "coverage": 1.0,
+            "style": 1.0
+          },
+          "summary": "The telestrator overlay accurately marks key actions in the soccer match, including a dribble, pass, shot, and clear. The graphics are timed correctly and placed clearly on the field, with consistent use of yellow rings and white arrows. The annotations match the described events and are legible throughout the sequence.",
+          "issues": [],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_0/v1_telestrator/overlay.mp4",
+          "picked": true,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        },
+        {
+          "id": "v2_social-hook",
+          "style": "social-hook",
+          "blurb": "Two or three huge words, timed to the action, for a short-form edit.",
+          "score": 0.34,
+          "scores": {
+            "accuracy": 0.3,
+            "readability": 0.4,
+            "timing": 0.2,
+            "coverage": 0.3,
+            "style": 0.5
+          },
+          "summary": "The overlay uses a mix of disc, arrow, and banner graphics to highlight key moments in a soccer match, including dribbling, passing, a shot on goal, and a clearance. The timing and placement of the graphics are inconsistent with the actual events, leading to confusion about which player is being tracked and when.",
+          "issues": [
+            {
+              "axis": "accuracy",
+              "detail": "The yellow disc labeled 'Striker' is placed on a Duke player in blue, not the UCLA player in white who is dribbling.",
+              "fix": "Move the yellow disc to the UCLA player in white to accurately represent the dribbler."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The cyan arrow labeled 'Push' is placed on a Duke player in blue, not the UCLA player in white who receives the pass.",
+              "fix": "Move the cyan arrow to the UCLA player in white to accurately represent the passer."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The red banner labeled 'GOAL' appears when the Duke goalkeeper makes a save, not when a goal is scored.",
+              "fix": "Remove the red banner or change its text to 'Save' to accurately reflect the event."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The yellow disc labeled 'Clear' is placed on a Duke player in blue, not the UCLA player in white who clears the ball.",
+              "fix": "Move the yellow disc to the UCLA player in white to accurately represent the clearer."
+            }
+          ],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_0/v2_social-hook/overlay.mp4",
+          "picked": false,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "picked": "role-marker",
+      "score": 0.8,
+      "variants": [
+        {
+          "id": "v0_broadcast-strap",
+          "style": "broadcast-strap",
+          "blurb": "A clean name-and-role strap that stays out of the official lower-third.",
+          "score": 0.5,
+          "scores": {
+            "accuracy": 0.5,
+            "readability": 0.5,
+            "timing": 0.5,
+            "coverage": 0.5,
+            "style": 0.5
+          },
+          "summary": "The overlay uses a broadcast-strap style with a yellow ring on the striker, a white arrow for the pass, a yellow ring for the shot attempt, and a white arrow for the clear. The text labels are placed at the bottom of the screen and remain visible for the duration of each action. The graphics are simple and do not interfere with the on-screen action or the bottom-left logo.",
+          "issues": [
+            {
+              "axis": "accuracy",
+              "detail": "The yellow ring is placed on the wrong player, not the striker.",
+              "fix": "Move the yellow ring to the correct player."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The white arrow points to the wrong player, not the support runner.",
+              "fix": "Move the white arrow to the correct player."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The yellow ring is placed on the wrong player, not the shot attempt.",
+              "fix": "Move the yellow ring to the correct player."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The white arrow points to the wrong player, not the clear to defense.",
+              "fix": "Move the white arrow to the correct player."
+            }
+          ],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_1/v0_broadcast-strap/overlay.mp4",
+          "picked": false,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        },
+        {
+          "id": "v1_data-chip",
+          "style": "data-chip",
+          "blurb": "One factual chip for the action a viewer can check by looking.",
+          "score": 0.0,
+          "scores": {
+            "accuracy": 0.0,
+            "readability": 0.0,
+            "timing": 0.0,
+            "coverage": 0.0,
+            "style": 0.0
+          },
+          "summary": "The overlay attempts to mark key actions in a soccer match, including a dribble, pass, shot, and clear, but the graphics are misaligned with the actual players and events. The 'Striker' disc is incorrectly placed, the 'Pass to support' arrow is misplaced, the 'Shot attempt' disc is not on the ball, and the 'Clear to defense' arrow is not pointing to the correct ball movement.",
+          "issues": [
+            {
+              "axis": "accuracy",
+              "detail": "The yellow disc labeled 'Striker' is placed on a Duke player in blue, not the UCLA striker in white.",
+              "fix": "Move the yellow disc to the UCLA striker in white."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The white arrow labeled 'Pass to support' is pointing to a Duke player in blue, not the UCLA player receiving the pass.",
+              "fix": "Move the arrow to the UCLA player in white who receives the pass."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The yellow disc labeled 'Shot attempt' is placed on a Duke player in blue, not the UCLA player who takes the shot.",
+              "fix": "Move the yellow disc to the UCLA player in white who takes the shot."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The white arrow labeled 'Clear to defense' is pointing to a Duke player in blue, not the ball being cleared.",
+              "fix": "Move the arrow to the ball being cleared by a Duke player."
+            }
+          ],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_1/v1_data-chip/overlay.mp4",
+          "picked": false,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        },
+        {
+          "id": "v2_role-marker",
+          "style": "role-marker",
+          "blurb": "Yellow disc under the ball carrier and a one-word role, like the DK Falcon reference.",
+          "score": 0.8,
+          "scores": {
+            "accuracy": 0.8,
+            "readability": 0.8,
+            "timing": 0.8,
+            "coverage": 0.8,
+            "style": 0.8
+          },
+          "summary": "The overlay uses role markers and arrows to highlight key actions in a soccer match, including a striker dribbling, a pass to support, a shot attempt, and a clear to defense. The graphics are placed on the field and remain visible throughout the clip, with text labels appearing at the bottom of the screen.",
+          "issues": [
+            {
+              "axis": "accuracy",
+              "detail": "The yellow disc labeled 'Striker' is placed on a Duke player in blue instead of the UCLA player in white who is dribbling.",
+              "fix": "Move the yellow disc to the UCLA player in white to correctly identify the striker."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The white arrow labeled 'Pass to support' is pointing to a Duke player in blue instead of the UCLA player in white who receives the pass.",
+              "fix": "Adjust the arrow to point to the UCLA player in white to accurately represent the pass to support."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The yellow disc labeled 'Shot attempt' is placed on a Duke player in blue instead of the UCLA player in white who takes the shot.",
+              "fix": "Move the yellow disc to the UCLA player in white to correctly identify the shot attempt."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The white arrow labeled 'Clear to defense' is pointing to a Duke player in blue instead of the UCLA player in white who clears the ball.",
+              "fix": "Adjust the arrow to point to the UCLA player in white to accurately represent the clear to defense."
+            }
+          ],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_1/v2_role-marker/overlay.mp4",
+          "picked": true,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "picked": "telestrator",
+      "score": 1.0,
+      "variants": [
+        {
+          "id": "v0_telestrator",
+          "style": "telestrator",
+          "blurb": "Pundit pen: one ring, then one arrow, each with its own short caption.",
+          "score": 1.0,
+          "scores": {
+            "accuracy": 1.0,
+            "readability": 1.0,
+            "timing": 1.0,
+            "coverage": 1.0,
+            "style": 1.0
+          },
+          "summary": "The telestrator overlay accurately marks key actions in the soccer match, including a dribble, pass, shot, and clear, with appropriate timing and placement of graphics.",
+          "issues": [],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_2/v0_telestrator/overlay.mp4",
+          "picked": true,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        },
+        {
+          "id": "v1_social-hook",
+          "style": "social-hook",
+          "blurb": "Two or three huge words, timed to the action, for a short-form edit.",
+          "score": 1.0,
+          "scores": {
+            "accuracy": 1.0,
+            "readability": 1.0,
+            "timing": 1.0,
+            "coverage": 1.0,
+            "style": 1.0
+          },
+          "summary": "The overlay accurately labels key moments in the soccer play, including dribbling, passing, shooting, and clearing. The text is large and clearly visible, timed to match the on-field action. The style matches the requested social-hook format, with distinct banners for each phase of the play.",
+          "issues": [],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_2/v1_social-hook/overlay.mp4",
+          "picked": false,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        },
+        {
+          "id": "v2_broadcast-strap",
+          "style": "broadcast-strap",
+          "blurb": "A clean name-and-role strap that stays out of the official lower-third.",
+          "score": 0.8,
+          "scores": {
+            "accuracy": 0.8,
+            "readability": 0.8,
+            "timing": 0.8,
+            "coverage": 0.8,
+            "style": 0.8
+          },
+          "summary": "The overlay uses a broadcast-strap style with rings and arrows to highlight key actions: a striker dribbling, a pass to support, a shot attempt, and a clear to defense. The text labels are placed at the bottom of the screen, matching the timing of each event. The visual elements are clear and legible, with colors that contrast well against the field.",
+          "issues": [
+            {
+              "axis": "accuracy",
+              "detail": "The ring labeled 'Striker' is placed on a Duke player in blue instead of the UCLA player in white.",
+              "fix": "Move the 'Striker' ring to the UCLA player in white."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The arrow labeled 'Pass to support' points to a Duke player in blue instead of the UCLA player in white.",
+              "fix": "Adjust the arrow to point to the UCLA player in white."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The ring labeled 'Shot attempt' is placed on a Duke player in blue instead of the UCLA player in white.",
+              "fix": "Move the 'Shot attempt' ring to the UCLA player in white."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The arrow labeled 'Clear to defense' points to a Duke player in blue instead of the UCLA player in white.",
+              "fix": "Adjust the arrow to point to the UCLA player in white."
+            }
+          ],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_2/v2_broadcast-strap/overlay.mp4",
+          "picked": false,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "picked": "telestrator",
+      "score": 0.8,
+      "variants": [
+        {
+          "id": "v0_data-chip",
+          "style": "data-chip",
+          "blurb": "One factual chip for the action a viewer can check by looking.",
+          "score": 0.0,
+          "scores": {
+            "accuracy": 0.0,
+            "readability": 0.0,
+            "timing": 0.0,
+            "coverage": 0.0,
+            "style": 0.0
+          },
+          "summary": "The overlay uses a single 'Wide switch' chip that appears across all three frames, which is inconsistent with the actual sequence of events involving a dribble, pass, shot, and clear. The chip does not accurately reflect the specific actions occurring in each frame, nor does it provide a clear visual cue for the viewer to understand the progression of play.",
+          "issues": [
+            {
+              "axis": "accuracy",
+              "detail": "The chip incorrectly labels the entire sequence as a 'Wide switch' when the actual events include a dribble, pass, shot, and clear.",
+              "fix": "Replace the generic 'Wide switch' chip with specific chips for each action (e.g., 'Dribble', 'Pass to support runner', 'Shot attempt', 'Clear to defense')."
+            },
+            {
+              "axis": "readability",
+              "detail": "The chip remains static and does not change to reflect the different actions occurring in each frame, making it difficult for the viewer to understand the sequence of events.",
+              "fix": "Update the chip text and visual indicators to match the specific action in each frame."
+            },
+            {
+              "axis": "timing",
+              "detail": "The chip appears at the beginning of the clip and remains visible throughout, which is not aligned with the timing of the actual actions.",
+              "fix": "Adjust the timing of the chip to appear only during the relevant action and disappear when the action is completed."
+            },
+            {
+              "axis": "coverage",
+              "detail": "The chip does not cover the main actions in the summary, such as the dribble, pass, shot, and clear.",
+              "fix": "Add additional chips to cover each main action in the summary."
+            },
+            {
+              "axis": "style",
+              "detail": "The chip does not follow the requested style of providing a single fact next to the picture, as it is too generic and does not provide specific information about the actions.",
+              "fix": "Use more specific and descriptive chips that accurately reflect the actions in the video."
+            }
+          ],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_3/v0_data-chip/overlay.mp4",
+          "picked": false,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        },
+        {
+          "id": "v1_role-marker",
+          "style": "role-marker",
+          "blurb": "Yellow disc under the ball carrier and a one-word role, like the DK Falcon reference.",
+          "score": 0.3,
+          "scores": {
+            "accuracy": 0.3,
+            "readability": 0.3,
+            "timing": 0.3,
+            "coverage": 0.3,
+            "style": 0.3
+          },
+          "summary": "The overlay uses yellow discs and arrows to mark the ball carrier, passes, shots, and clears, but the text labels and timing do not match the actual actions in the frames.",
+          "issues": [
+            {
+              "axis": "accuracy",
+              "detail": "The yellow disc labeled 'Striker' is placed on a Duke player in blue, not the UCLA player in white who is dribbling.",
+              "fix": "Move the yellow disc to the UCLA player in white."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The white arrow labeled 'Pass to support' points to a Duke player in blue, not the UCLA player in white who receives the pass.",
+              "fix": "Reposition the arrow to point at the UCLA player in white."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The yellow disc labeled 'Shot attempt' is placed on a Duke player in blue, not the UCLA player in white who takes the shot.",
+              "fix": "Move the yellow disc to the UCLA player in white."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The white arrow labeled 'Clear to defense' points to a Duke player in blue, not the UCLA player in white who clears the ball.",
+              "fix": "Reposition the arrow to point at the UCLA player in white."
+            }
+          ],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_3/v1_role-marker/overlay.mp4",
+          "picked": false,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        },
+        {
+          "id": "v2_telestrator",
+          "style": "telestrator",
+          "blurb": "Pundit pen: one ring, then one arrow, each with its own short caption.",
+          "score": 0.8,
+          "scores": {
+            "accuracy": 0.8,
+            "readability": 0.7,
+            "timing": 0.8,
+            "coverage": 0.8,
+            "style": 0.9
+          },
+          "summary": "The telestrator overlay accurately marks key actions in the soccer match, including a dribble, pass, shot, and clear, with appropriate timing and placement. The graphics are clear and follow the requested style, though some minor issues with marker positioning and text placement affect overall accuracy and readability.",
+          "issues": [
+            {
+              "axis": "accuracy",
+              "detail": "The ring is placed on a Duke player instead of the UCLA striker.",
+              "fix": "Move the ring to the UCLA striker."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The arrow points to the wrong player.",
+              "fix": "Adjust the arrow to point to the correct support runner."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The ring is placed on a Duke player instead of the UCLA shooter.",
+              "fix": "Move the ring to the UCLA shooter."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The arrow points to the wrong player.",
+              "fix": "Adjust the arrow to point to the correct defensive player."
+            }
+          ],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_3/v2_telestrator/overlay.mp4",
+          "picked": true,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "picked": "data-chip",
+      "score": 1.0,
+      "variants": [
+        {
+          "id": "v0_social-hook",
+          "style": "social-hook",
+          "blurb": "Two or three huge words, timed to the action, for a short-form edit.",
+          "score": 0.6,
+          "scores": {
+            "accuracy": 0.6,
+            "readability": 0.6,
+            "timing": 0.6,
+            "coverage": 0.6,
+            "style": 0.6
+          },
+          "summary": "The overlay uses a social-hook style with banners and discs to highlight key moments in a soccer match, including a wide play, a switch, a shot attempt, and a clear to defense. The text and graphics are timed to match the on-field action, though some elements like the arrow and disc placement could be improved for clarity.",
+          "issues": [
+            {
+              "axis": "accuracy",
+              "detail": "The disc labeled 'Striker' is placed on a player who is not the primary striker in the play, reducing its effectiveness in identifying the key player.",
+              "fix": "Move the 'Striker' disc to the player who is actively dribbling and creating the play."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The arrow labeled 'Pass to support runner' points to a player who is not the intended support runner, leading to confusion.",
+              "fix": "Adjust the arrow to point directly at the player who receives the pass and supports the runner."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The disc labeled 'Shot attempt' is placed on a player who is not the one taking the shot, making it unclear which player is responsible for the action.",
+              "fix": "Move the 'Shot attempt' disc to the player who actually takes the shot on goal."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The arrow labeled 'Clear to defense' points to a player who is not the one clearing the ball, causing misinterpretation of the play.",
+              "fix": "Reposition the arrow to accurately indicate the player who clears the ball to defense."
+            }
+          ],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_4/v0_social-hook/overlay.mp4",
+          "picked": false,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        },
+        {
+          "id": "v1_broadcast-strap",
+          "style": "broadcast-strap",
+          "blurb": "A clean name-and-role strap that stays out of the official lower-third.",
+          "score": 0.5,
+          "scores": {
+            "accuracy": 0.5,
+            "readability": 0.5,
+            "timing": 0.5,
+            "coverage": 0.5,
+            "style": 0.5
+          },
+          "summary": "The overlay uses a broadcast-strap style with a yellow ring on the striker, a white arrow for the pass, a yellow ring for the shot attempt, and a white arrow for the clear. The text labels are placed at the bottom of the screen, matching the intended design.",
+          "issues": [
+            {
+              "axis": "accuracy",
+              "detail": "The yellow ring is placed on the wrong player, not the striker.",
+              "fix": "Move the yellow ring to the correct player."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The white arrow points to the wrong player, not the support runner.",
+              "fix": "Adjust the arrow to point to the correct player."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The yellow ring is placed on the wrong player, not the shot attempt.",
+              "fix": "Move the yellow ring to the correct player."
+            },
+            {
+              "axis": "accuracy",
+              "detail": "The white arrow points to the wrong player, not the clear to defense.",
+              "fix": "Adjust the arrow to point to the correct player."
+            }
+          ],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_4/v1_broadcast-strap/overlay.mp4",
+          "picked": false,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        },
+        {
+          "id": "v2_data-chip",
+          "style": "data-chip",
+          "blurb": "One factual chip for the action a viewer can check by looking.",
+          "score": 1.0,
+          "scores": {
+            "accuracy": 1.0,
+            "readability": 1.0,
+            "timing": 1.0,
+            "coverage": 1.0,
+            "style": 1.0
+          },
+          "summary": "The overlay accurately marks the key actions in the clip: a striker dribbling wide, a pass to support, a shot on goal, and a clear to defense. The timing and placement of the graphics align with the events in the frames, and the style matches the requested data-chip format.",
+          "issues": [],
+          "video": "runs/ZlnY82npUsA_0149-0159/iter_4/v2_data-chip/overlay.mp4",
+          "picked": true,
+          "source": "nvidia/cosmos3-nano-reasoner"
+        }
+      ]
+    }
+  ],
+  "after": [
+    {
+      "title": "The box follows the ball",
+      "video": "runs/ZlnY82npUsA_0149-0159/frame_track/overlay.mp4",
+      "because": "Round after round, the grade said the disc or the arrow was on a blue Duke shirt while the white player had the ball, and that a label stayed up after the action had moved. This cut stops guessing a role. It draws the ball from the detector frame that measured it, and a circle under the player at the ball.",
+      "good": [
+        "The box is on the ball on the frame it was measured, including when the camera pans.",
+        "When the detector does not see the ball, the box is absent instead of sitting on grass."
+      ],
+      "bad": [
+        "It is still a diagram. A kick and a shot do not change the picture."
+      ]
+    },
+    {
+      "title": "Hits get a sound and a punch",
+      "video": "runs/ZlnY82npUsA_0149-0159/frame_track/hype.mp4",
+      "because": "The ball track was right and the picture was flat. Kicks, the pass, and the shot now zoom in over time, shake, and carry a hit sound. The shot slows down.",
+      "good": [
+        "The zoom travels in instead of cutting to a cropped frame.",
+        "Slow motion is darker than the live picture, so the shot feels different from the run of play."
+      ],
+      "bad": [
+        "This file still ends on the save. The goal has not been added to the upload yet."
+      ]
+    },
+    {
+      "title": "The goal cut",
+      "video": "runs/20261002_212835_23c4d10d/frame_track/hype.mp4",
+      "because": "The new upload includes the scoring second. The zoom pushes into the net, the slow motion stays dark, a light opens on the ball in the goal, and the picture holds afterward with confetti and a cheer.",
+      "hits": [
+        {
+          "t": 0.5839,
+          "kind": "KICK"
+        },
+        {
+          "t": 2.5025,
+          "kind": "PASS"
+        },
+        {
+          "t": 5.3387,
+          "kind": "KICK"
+        },
+        {
+          "t": 6.9236,
+          "kind": "SHOT"
+        },
+        {
+          "t": 10.5105,
+          "kind": "GOAL"
+        }
+      ],
+      "critique": {
+        "source": "nvidia/cosmos3-nano-reasoner",
+        "summary": "The highlight shows a soccer play where a shot is saved, followed by a goal. The edit includes a zoom into the goal, slow motion, and a celebration with confetti.",
+        "good": [
+          "The zoom into the goal and the slow motion effect are well-timed and enhance the dramatic impact of the goal.",
+          "The confetti and celebration after the goal add to the celebratory feel of the highlight.",
+          "The use of a light flare on the ball in the net adds a cinematic touch to the goal moment."
+        ],
+        "bad": [
+          "The ball box effect is not visible in the frames, which may affect the readability of the ball's position during the play.",
+          "The timing of the zoom and slow motion could be slightly adjusted to better align with the exact moment of the goal."
+        ],
+        "scores": {
+          "accuracy": 0.5,
+          "readability": 0.5,
+          "timing": 0.5,
+          "coverage": 0.5,
+          "style": 0.5
+        },
+        "issues": [
+          {
+            "axis": "accuracy",
+            "detail": "The ball box effect is not visible in the frames, which may affect the readability of the ball's position during the play.",
+            "fix": "Ensure the ball box effect is visible in the frames to improve readability."
+          },
+          {
+            "axis": "timing",
+            "detail": "The timing of the zoom and slow motion could be slightly adjusted to better align with the exact moment of the goal.",
+            "fix": "Adjust the timing of the zoom and slow motion to better align with the exact moment of the goal."
+          }
+        ]
+      }
+    }
+  ]
+}
