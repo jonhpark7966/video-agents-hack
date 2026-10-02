@@ -1,0 +1,82 @@
+{
+  "iteration": 0,
+  "video": "runs/wz1r_VJaJZw_5836-5914/iter_0/overlay.mp4",
+  "source": "mock",
+  "score": 0.562,
+  "pass": false,
+  "scores": {
+    "accuracy": 0.75,
+    "readability": 0.0,
+    "timing": 0.75,
+    "coverage": 0.75
+  },
+  "issues": [
+    {
+      "item": "o1",
+      "type": "too_small",
+      "axis": "readability",
+      "detail": "font 28px, needs 40px",
+      "fix": {
+        "size": 40
+      }
+    },
+    {
+      "item": "o2",
+      "type": "too_short",
+      "axis": "readability",
+      "detail": "label up 0.8s, needs 1.5s",
+      "fix": {
+        "end": 9.5
+      }
+    },
+    {
+      "item": "o2",
+      "type": "too_small",
+      "axis": "readability",
+      "detail": "font 28px, needs 40px",
+      "fix": {
+        "size": 40
+      }
+    },
+    {
+      "item": "o3",
+      "type": "wrong_target",
+      "axis": "accuracy",
+      "detail": "p_def is not a tracked object",
+      "fix": {
+        "drop": true
+      }
+    },
+    {
+      "item": "o3",
+      "type": "too_small",
+      "axis": "readability",
+      "detail": "font 28px, needs 40px",
+      "fix": {
+        "size": 40
+      }
+    },
+    {
+      "item": "e1",
+      "type": "too_fast",
+      "axis": "timing",
+      "detail": "7.5 words/s, max 3.0",
+      "fix": {
+        "end": 10.0
+      }
+    },
+    {
+      "item": null,
+      "type": "missed_event",
+      "axis": "coverage",
+      "detail": "goal at 9.0s is not explained",
+      "fix": {
+        "add_line": {
+          "start": 9.0,
+          "end": 12.0,
+          "text": "Muniz finishes acrobatically at the near post."
+        }
+      }
+    }
+  ]
+}

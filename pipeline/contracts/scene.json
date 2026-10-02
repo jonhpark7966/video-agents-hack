@@ -1,0 +1,139 @@
+{
+  "video": "samples/wz1r_VJaJZw_5836-5914.mp4",
+  "source": "mock",
+  "size": [
+    1920,
+    1080
+  ],
+  "fps": 25.0,
+  "duration": 38.0,
+  "shots": [
+    {
+      "start": 0.0,
+      "end": 14.0,
+      "kind": "wide-live"
+    },
+    {
+      "start": 14.0,
+      "end": 38.0,
+      "kind": "replay"
+    }
+  ],
+  "tracks": [
+    {
+      "id": "ball",
+      "label": "ball",
+      "keys": [
+        {
+          "t": 4.0,
+          "box": [
+            0.6,
+            0.5,
+            0.012,
+            0.02
+          ]
+        },
+        {
+          "t": 8.0,
+          "box": [
+            0.3,
+            0.44,
+            0.012,
+            0.02
+          ]
+        },
+        {
+          "t": 11.0,
+          "box": [
+            0.12,
+            0.38,
+            0.012,
+            0.02
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p19",
+      "label": "player",
+      "team": "Fulham",
+      "name": "Muniz",
+      "keys": [
+        {
+          "t": 4.0,
+          "box": [
+            0.5,
+            0.4,
+            0.025,
+            0.09
+          ]
+        },
+        {
+          "t": 8.0,
+          "box": [
+            0.26,
+            0.4,
+            0.025,
+            0.09
+          ]
+        },
+        {
+          "t": 11.0,
+          "box": [
+            0.16,
+            0.36,
+            0.025,
+            0.09
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p_cross",
+      "label": "player",
+      "team": "Fulham",
+      "keys": [
+        {
+          "t": 4.0,
+          "box": [
+            0.7,
+            0.55,
+            0.025,
+            0.09
+          ]
+        },
+        {
+          "t": 8.0,
+          "box": [
+            0.42,
+            0.52,
+            0.025,
+            0.09
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "start": 6.0,
+      "end": 8.5,
+      "type": "cross",
+      "actors": [
+        "p_cross",
+        "p19"
+      ],
+      "caption": "Ball is worked wide and crossed into the box."
+    },
+    {
+      "start": 9.0,
+      "end": 12.0,
+      "type": "goal",
+      "actors": [
+        "p19"
+      ],
+      "caption": "Muniz finishes acrobatically at the near post."
+    }
+  ],
+  "summary": "Late Fulham equaliser: wide build-up, cross, acrobatic finish, then replays."
+}

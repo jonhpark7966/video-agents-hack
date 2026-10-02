@@ -1,0 +1,51 @@
+{
+  "iteration": 0,
+  "items": [
+    {
+      "id": "o1",
+      "kind": "ring",
+      "track": "p_cross",
+      "start": 5.0,
+      "end": 8.0,
+      "text": "Crosser",
+      "size": 28,
+      "color": "cyan"
+    },
+    {
+      "id": "o2",
+      "kind": "ring",
+      "track": "p19",
+      "start": 8.0,
+      "end": 8.8,
+      "text": "Muniz",
+      "size": 28,
+      "color": "yellow"
+    },
+    {
+      "id": "o3",
+      "kind": "ring",
+      "track": "p_def",
+      "start": 8.0,
+      "end": 11.0,
+      "text": "Defender",
+      "size": 28,
+      "color": "red"
+    },
+    {
+      "id": "o4",
+      "kind": "ring",
+      "track": "ball",
+      "start": 4.0,
+      "end": 11.0,
+      "color": "white"
+    }
+  ],
+  "explanation": [
+    {
+      "id": "e1",
+      "start": 5.0,
+      "end": 7.0,
+      "text": "Fulham switch it wide and the full-back whips an early cross toward the near post"
+    }
+  ]
+}
