@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spain pick-and-roll</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <p class="eyebrow">Silent clip, explained</p>
+    <h1>Spain pick-and-roll</h1>
+    <p class="dek">A second screen turns an ordinary pick-and-roll into a layup. The chalk and the word fire together. This board is the object the pipeline has to produce.</p>
+    <ol class="steps">
+      <li><span>01</span> Cosmos names each beat of the possession.</li>
+      <li><span>02</span> Tracks lock the bodies the chalk is allowed to touch.</li>
+      <li><span>03</span> Opus writes graphics as a timed spec, not as pixels.</li>
+      <li><span>04</span> Cosmos looks again and rejects a mark on the wrong body.</li>
+      <li><span>05</span> Every teaching word has to land inside its graphic.</li>
+    </ol>
+    <div class="stage">
+      <section class="board">
+        <div class="court-wrap">
+          <canvas id="court" width="1000" height="940" aria-label="Half-court diagram of a Spain pick-and-roll"></canvas>
+        </div>
+        <div class="transport">
+          <button class="play" id="play" type="button">Play</button>
+          <div class="scrub" id="scrub" role="slider" aria-valuemin="0" aria-valuemax="12.2" aria-label="Possession time">
+            <div class="scrub-track"></div>
+            <div class="scrub-fill" id="fill"></div>
+          </div>
+          <div class="time" id="time">0.00</div>
+        </div>
+      </section>
+      <aside class="side">
+        <section>
+          <p class="kicker">Narration</p>
+          <p class="words" id="words"></p>
+        </section>
+        <section>
+          <p class="kicker">Cosmos read</p>
+          <p class="beat" id="beat"></p>
+        </section>
+        <section>
+          <p class="kicker">Word timing</p>
+          <ul class="checks" id="checks"></ul>
+        </section>
+      </aside>
+    </div>
+    <p class="note">Reconstructed possession of the Spain set, so the overlay language can be judged before a broadcast clip is attached. Filled circles are offense. Rings are defense. Dim players are spacing. Step 4 starts for real when these graphics are burned onto video frames and Cosmos is asked if each mark sits on the right body.</p>
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+</html>

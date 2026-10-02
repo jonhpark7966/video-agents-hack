@@ -1,0 +1,224 @@
+:root {
+  color-scheme: dark;
+  --bg: #10110e;
+  --ink: #f3f1ea;
+  --muted: #a7a69c;
+  --faint: rgba(243, 241, 234, 0.38);
+  --line: rgba(243, 241, 234, 0.14);
+  --chalk: #ffd84a;
+  --chalk-ink: #1c1604;
+  --court: #14261c;
+  --panel: #171814;
+  font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+button, input { font: inherit; color: inherit; }
+
+.wrap {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 28px 0 40px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--chalk);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Avenir Next Condensed", "Avenir Next", "Arial Narrow", sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+
+.dek {
+  max-width: 68ch;
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps li {
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.steps span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--chalk);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 11px;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 22px;
+  margin-top: 22px;
+}
+
+.board {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 12px;
+}
+
+.court-wrap {
+  position: relative;
+  aspect-ratio: 50 / 47;
+  background: var(--court);
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.transport {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.play {
+  min-width: 72px;
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  background: var(--chalk);
+  color: var(--chalk-ink);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.scrub {
+  position: relative;
+  height: 22px;
+  cursor: pointer;
+}
+
+.scrub-track, .scrub-fill {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  height: 2px;
+}
+
+.scrub-track { right: 0; background: rgba(243, 241, 234, 0.2); }
+.scrub-fill { background: var(--chalk); }
+
+.tick {
+  position: absolute;
+  top: 6px;
+  width: 2px;
+  height: 10px;
+  background: var(--ink);
+}
+
+.time {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.side { display: flex; flex-direction: column; gap: 18px; }
+
+.kicker {
+  margin: 0 0 8px;
+  color: var(--faint);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.words {
+  margin: 0;
+  font-family: "Avenir Next Condensed", "Avenir Next", "Arial Narrow", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.word { color: rgba(243, 241, 234, 0.28); }
+.word.said { color: rgba(243, 241, 234, 0.78); }
+.word.now { color: var(--chalk); }
+.break { display: block; height: 8px; }
+
+.beat {
+  margin: 0;
+  min-height: 4.6em;
+  font-family: "Iowan Old Style", Palatino, "Palatino Linotype", serif;
+  font-size: 20px;
+  line-height: 1.35;
+}
+
+.checks { list-style: none; margin: 0; padding: 0; }
+.checks li {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 8px;
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+.checks .mark {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--chalk);
+}
+.checks li.miss .mark { color: #ff5d4a; }
+
+.note {
+  margin: 18px 0 0;
+  color: var(--faint);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+@media (max-width: 860px) {
+  .steps { grid-template-columns: 1fr 1fr; }
+  .stage { grid-template-columns: 1fr; }
+  h1 { font-size: 40px; }
+}
